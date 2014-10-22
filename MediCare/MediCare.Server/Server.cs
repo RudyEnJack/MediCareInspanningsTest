@@ -19,6 +19,7 @@ namespace MediCare.Server
         private Dictionary<string, TcpClient> _clients = new Dictionary<string, TcpClient>();
         private Dictionary<string, SslStream> _clientsStreams = new Dictionary<string, SslStream>();
         private ObjectIOv2 mIOv2; // do not remove, do not move and do not edit!
+        private bool _test = false;
 
         private LoginIO _loginIO = new LoginIO();
 
@@ -72,7 +73,7 @@ namespace MediCare.Server
                             dataString = (String)formatter.Deserialize(sslStream);
                             //dataString = (String)formatter.Deserialize(sender.GetStream());
                             packet = Utils.GetPacket(dataString);
-                            Console.WriteLine("Packet received: " + packet.toString());
+                            //Console.WriteLine("Packet received: " + packet.toString());
                             if (!Packet.hasValidId(packet))
                                 Console.WriteLine("WARNING! PACKET HAS INVALID ID. ONE SHOULD NOT SEND PACKETS TO THE SERVER WHO HAVE AN ID THAT DOES NOT PASS THE hasValidId(p) METHOD! \nPACKET ID USED WHAS: " + packet._id);
 
@@ -122,11 +123,11 @@ namespace MediCare.Server
                                 case "TestStart":
                                     HandleTestStartPacket(packet);
                                     break;
-                                case "TestData":
-                                    HandleTestDataPacket(packet);
-                                    break;
                                 case "TestResults":
                                     HandleTestResultsPacket(packet);
+                                    break;
+                                case "TestEnd":
+                                    HandleTestEndPacket(packet);
                                     break;
                                 default: //nothing
                                     break;
@@ -137,6 +138,12 @@ namespace MediCare.Server
                 }).Start();
             }
 
+        }
+
+        private void HandleTestEndPacket(Packet packet)
+        {
+            _test = false;
+            mIOv2.Add_Measurement(packet, _test);
         }
 
         private void HandleTestResultsPacket(Packet packet)
@@ -151,14 +158,19 @@ namespace MediCare.Server
             }
         }
 
-        private void HandleTestDataPacket(Packet packet)
-        {
-            //Save data
-        }
-
         private void HandleTestStartPacket(Packet packet)
         {
-            SendToDestination(packet);
+            if (IsDoctor(packet._id))
+            {
+                SendToDestination(packet);
+            }
+            else
+            {
+                string[] timestamp = DateTime.Now.ToString("yyyy_MM_dd HH_mm_ss").Split();
+                _test = true;
+                mIOv2.Create_file(new Packet(packet._id, packet._type, timestamp[0] + " " + timestamp[1]), _test);
+                mIOv2.Add_Measurement(packet, _test);
+            }
         }
 
         /// <summary>
@@ -571,13 +583,13 @@ namespace MediCare.Server
             string[] data = (p.GetMessage().Split(' '));
             if (data.Length < 8)
             {
-                mIOv2.Create_file(p);
+                mIOv2.Create_file(p, _test);
             }
             else
             {
                 //Console.WriteLine("\nHeartbeat: " + data[0] + "\nRPM 1: " + data[1] + "\nSpeed 2: " + data[2] + "\nDistance 3: " + data[3] +
                 //    "\nPower 4: " + data[4] + "\nEnergy 5: " + data[5] + "\nTimeRunning 6: " + data[6] + "\nBrake 7: " + data[7]);
-                mIOv2.Add_Measurement(p);
+                mIOv2.Add_Measurement(p, _test);
             }
         }
 

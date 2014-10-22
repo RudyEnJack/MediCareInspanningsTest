@@ -126,10 +126,18 @@ namespace MediCare.ArtsClient
                     case "Disconnect":
                     HandleDisconnectPacket(p);
                     break;
+                    case "TestResults":
+                    HandleTestResultsPacket(p);
+                    break;
                     default: //nothing
                     break;
                 }
             }
+        }
+
+        private void HandleTestResultsPacket(Packet p)
+        {
+            throw new NotImplementedException();
         }
 
         private void HandleDisconnectPacket(Packet p)
