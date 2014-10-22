@@ -47,6 +47,7 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exercise.cs" />
     <Compile Include="Graph.cs" />
     <Compile Include="LoginIO.cs" />
     <Compile Include="ObjectIO.cs" />
