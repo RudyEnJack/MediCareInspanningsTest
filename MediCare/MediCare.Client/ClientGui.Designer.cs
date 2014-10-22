@@ -54,6 +54,8 @@
             this.Username_label = new System.Windows.Forms.Label();
             this.LoginButton = new System.Windows.Forms.Button();
             this.Login_ERROR_Label = new System.Windows.Forms.Label();
+            this.TestStartButton = new System.Windows.Forms.Button();
+            this.TestResultsButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -295,11 +297,33 @@
             this.Login_ERROR_Label.Size = new System.Drawing.Size(0, 13);
             this.Login_ERROR_Label.TabIndex = 35;
             // 
+            // TestStartButton
+            // 
+            this.TestStartButton.Location = new System.Drawing.Point(1063, 434);
+            this.TestStartButton.Name = "TestStartButton";
+            this.TestStartButton.Size = new System.Drawing.Size(120, 45);
+            this.TestStartButton.TabIndex = 36;
+            this.TestStartButton.Text = "Start Inspanningstest";
+            this.TestStartButton.UseVisualStyleBackColor = true;
+            this.TestStartButton.Click += new System.EventHandler(this.TestStartButton_Clicked);
+            // 
+            // TestResultsButton
+            // 
+            this.TestResultsButton.Location = new System.Drawing.Point(1063, 555);
+            this.TestResultsButton.Name = "TestResultsButton";
+            this.TestResultsButton.Size = new System.Drawing.Size(120, 45);
+            this.TestResultsButton.TabIndex = 37;
+            this.TestResultsButton.Text = "Resultaten Inspanningstest";
+            this.TestResultsButton.UseVisualStyleBackColor = true;
+            this.TestResultsButton.Click += new System.EventHandler(this.TestResultsButton_Clicked);
+            // 
             // ClientGui
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1264, 681);
+            this.Controls.Add(this.TestResultsButton);
+            this.Controls.Add(this.TestStartButton);
             this.Controls.Add(this.Login_ERROR_Label);
             this.Controls.Add(this.Password_Box);
             this.Controls.Add(this.Username_Box);
@@ -365,6 +389,8 @@
         private System.Windows.Forms.Label Username_label;
         private System.Windows.Forms.Button LoginButton;
         private System.Windows.Forms.Label Login_ERROR_Label;
+        private System.Windows.Forms.Button TestStartButton;
+        private System.Windows.Forms.Button TestResultsButton;
     }
 }
 

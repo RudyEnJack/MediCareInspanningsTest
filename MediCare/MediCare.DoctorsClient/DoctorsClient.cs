@@ -538,6 +538,8 @@ namespace MediCare.ArtsClient
     {
         public Graph graph;
         #region define Controls
+        private System.Windows.Forms.Button TestStartButton;
+        private System.Windows.Forms.Button TestResultsButton;
         public Button closeButton = new Button();
         public Button closeAllButThisButton = new Button();
         private TextBox chatBox = new TextBox();
@@ -764,6 +766,8 @@ namespace MediCare.ArtsClient
             energyLabel.TabIndex = 23;
             energyLabel.Text = "Energy";
             #endregion
+            this.TestStartButton = new System.Windows.Forms.Button();
+            this.TestResultsButton = new System.Windows.Forms.Button();
 
             #region Heart Beats
             // 
@@ -854,6 +858,8 @@ namespace MediCare.ArtsClient
             this.Controls.Add(distanceLabel);
             this.Controls.Add(TimeRunning_Box);
             this.Controls.Add(timeRunningLabel);
+            this.Controls.Add(TestStartButton);
+            this.Controls.Add(TestResultsButton);
             #endregion
 
             //set tab Settings
@@ -864,7 +870,27 @@ namespace MediCare.ArtsClient
             this.Size = new System.Drawing.Size(1232, 631);
             //this.TabIndex = this.tabControl1.TabCount + 1; NOT NEEDED???
             this.Text = tabName;
-            this.UseVisualStyleBackColor = true;
+            this.UseVisualStyleBackColor = true;           
+            // 
+            // TestStartButton
+            // 
+            this.TestStartButton.Location = new System.Drawing.Point(1020, 420);
+            this.TestStartButton.Name = "TestStartButton";
+            this.TestStartButton.Size = new System.Drawing.Size(120, 45);
+            this.TestStartButton.TabIndex = 36;
+            this.TestStartButton.Text = "Start Inspanningstest";
+            this.TestStartButton.UseVisualStyleBackColor = true;
+            this.TestStartButton.Click += new System.EventHandler(this.TestStartButton_Clicked);
+            // 
+            // TestResultsButton
+            // 
+            this.TestResultsButton.Location = new System.Drawing.Point(1020, 480);
+            this.TestResultsButton.Name = "TestResultsButton";
+            this.TestResultsButton.Size = new System.Drawing.Size(120, 45);
+            this.TestResultsButton.TabIndex = 37;
+            this.TestResultsButton.Text = "Resultaten Inspanningstest";
+            this.TestResultsButton.UseVisualStyleBackColor = true;
+            this.TestResultsButton.Click += new System.EventHandler(this.TestResultsButton_Clicked);
         }
 
         private void resetButton_Click(object sender, EventArgs e)
@@ -1032,6 +1058,17 @@ namespace MediCare.ArtsClient
             }
         }
         #endregion
+        private void TestStartButton_Clicked(object sender, EventArgs e)
+        {
+            //Start Inspanningstest
+        }
+
+        private void TestResultsButton_Clicked(object sender, EventArgs e)
+        {
+            //Show results of previous InspanningsTest by this ID
+        }
     }
     #endregion
+
+
 }

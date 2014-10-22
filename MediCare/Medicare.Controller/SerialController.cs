@@ -63,7 +63,6 @@ namespace MediCare.Controller
                         }
                         Console.WriteLine("Checked: " + ports[i]);
                         sc.closeConnection();
-
                     }
                     catch (Exception e)
                     {

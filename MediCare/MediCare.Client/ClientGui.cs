@@ -60,8 +60,8 @@ namespace MediCare.Client
             _labelRemoveTimer.Interval = 3000;
             _labelRemoveTimer.Tick += UpdateLabel;
 
-            Connect("");
 
+            Connect("");
             //opzetten tcp connectie
             TcpClient TcpClient = new TcpClient(_server, _port);
             _client = new ClientTcpConnector(TcpClient, _server);
@@ -118,6 +118,7 @@ namespace MediCare.Client
         {
             if (p._message == "VERIFIED")
             {
+                _bikeController.ResetBike();
                 Console.WriteLine("Succesfully logged in");
             }
             else
@@ -429,6 +430,8 @@ namespace MediCare.Client
             typeBox.Visible = v;
             txtLog.Visible = v;
             listView1.Visible = v;
+            TestStartButton.Visible = v;
+            TestResultsButton.Visible = v;
 
             Password_Box.Visible = !v;
             Username_Box.Visible = !v;
@@ -466,6 +469,17 @@ namespace MediCare.Client
         }
 
         #endregion
+
+        private void TestStartButton_Clicked(object sender, EventArgs e)
+        {
+            _bikeController.ResetBike();
+            //Start Inspanningstest
+        }
+
+        private void TestResultsButton_Clicked(object sender, EventArgs e)
+        {
+            //Show results of previous InspanningsTest by this ID
+        }
 
     }
 }
