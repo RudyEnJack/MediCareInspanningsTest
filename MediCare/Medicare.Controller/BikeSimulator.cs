@@ -201,7 +201,7 @@ namespace MediCare.Controller
             timePassed = DateTime.Now.Ticks - initialTime;
             distance += (int)((speed * 3.6) * ((timePassed / 10000000)));
             energy += (int)(timePassed / 10000000); //60 Kjoules per minuut, dus een per seconde (als je 30km/u gaat en 66Kg weegt).
-            Console.WriteLine("timepassed: " + (timePassed / 10000000) / 60 + ":" + (timePassed / 10000000) % 60);
+            //Console.WriteLine("timepassed: " + (timePassed / 10000000) / 60 + ":" + (timePassed / 10000000) % 60);
 
             // TODO Add Time
         }

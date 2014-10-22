@@ -56,6 +56,10 @@
             this.Login_ERROR_Label = new System.Windows.Forms.Label();
             this.TestStartButton = new System.Windows.Forms.Button();
             this.TestResultsButton = new System.Windows.Forms.Button();
+            this.LeeftijdBox = new System.Windows.Forms.TextBox();
+            this.GewichtBox = new System.Windows.Forms.TextBox();
+            this.LeeftijdLabel = new System.Windows.Forms.Label();
+            this.GewichtLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -299,7 +303,7 @@
             // 
             // TestStartButton
             // 
-            this.TestStartButton.Location = new System.Drawing.Point(1063, 434);
+            this.TestStartButton.Location = new System.Drawing.Point(1063, 530);
             this.TestStartButton.Name = "TestStartButton";
             this.TestStartButton.Size = new System.Drawing.Size(120, 45);
             this.TestStartButton.TabIndex = 36;
@@ -309,7 +313,7 @@
             // 
             // TestResultsButton
             // 
-            this.TestResultsButton.Location = new System.Drawing.Point(1063, 555);
+            this.TestResultsButton.Location = new System.Drawing.Point(1063, 594);
             this.TestResultsButton.Name = "TestResultsButton";
             this.TestResultsButton.Size = new System.Drawing.Size(120, 45);
             this.TestResultsButton.TabIndex = 37;
@@ -317,11 +321,47 @@
             this.TestResultsButton.UseVisualStyleBackColor = true;
             this.TestResultsButton.Click += new System.EventHandler(this.TestResultsButton_Clicked);
             // 
+            // LeeftijdBox
+            // 
+            this.LeeftijdBox.Location = new System.Drawing.Point(1102, 446);
+            this.LeeftijdBox.Name = "LeeftijdBox";
+            this.LeeftijdBox.Size = new System.Drawing.Size(100, 20);
+            this.LeeftijdBox.TabIndex = 38;
+            // 
+            // GewichtBox
+            // 
+            this.GewichtBox.Location = new System.Drawing.Point(1102, 487);
+            this.GewichtBox.Name = "GewichtBox";
+            this.GewichtBox.Size = new System.Drawing.Size(100, 20);
+            this.GewichtBox.TabIndex = 39;
+            // 
+            // LeeftijdLabel
+            // 
+            this.LeeftijdLabel.AutoSize = true;
+            this.LeeftijdLabel.Location = new System.Drawing.Point(1022, 449);
+            this.LeeftijdLabel.Name = "LeeftijdLabel";
+            this.LeeftijdLabel.Size = new System.Drawing.Size(44, 13);
+            this.LeeftijdLabel.TabIndex = 40;
+            this.LeeftijdLabel.Text = "Leeftijd:";
+            // 
+            // GewichtLabel
+            // 
+            this.GewichtLabel.AutoSize = true;
+            this.GewichtLabel.Location = new System.Drawing.Point(1022, 490);
+            this.GewichtLabel.Name = "GewichtLabel";
+            this.GewichtLabel.Size = new System.Drawing.Size(49, 13);
+            this.GewichtLabel.TabIndex = 41;
+            this.GewichtLabel.Text = "Gewicht:";
+            // 
             // ClientGui
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1264, 681);
+            this.Controls.Add(this.GewichtLabel);
+            this.Controls.Add(this.LeeftijdLabel);
+            this.Controls.Add(this.GewichtBox);
+            this.Controls.Add(this.LeeftijdBox);
             this.Controls.Add(this.TestResultsButton);
             this.Controls.Add(this.TestStartButton);
             this.Controls.Add(this.Login_ERROR_Label);
@@ -391,6 +431,10 @@
         private System.Windows.Forms.Label Login_ERROR_Label;
         private System.Windows.Forms.Button TestStartButton;
         private System.Windows.Forms.Button TestResultsButton;
+        private System.Windows.Forms.TextBox LeeftijdBox;
+        private System.Windows.Forms.TextBox GewichtBox;
+        private System.Windows.Forms.Label LeeftijdLabel;
+        private System.Windows.Forms.Label GewichtLabel;
     }
 }
 

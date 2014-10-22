@@ -13,9 +13,10 @@ namespace MediCare.DataHandling
     public class ObjectIOv2
     {
         private const string _dir = @"Measurements\";
+        private const string _testDir = @"Inspanningstesten\";
         private const string _fileExt = ".dat";
-        public string Status { get;  private set; }
-        private Dictionary<string,string> _dirDictionary;
+        public string Status { get; private set; }
+        private Dictionary<string, string> _dirDictionary;
         private const string EncryptionKey = "X10j6CZgLK24OESeXAoq";
         private byte[] salt = { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 };
 
@@ -23,13 +24,13 @@ namespace MediCare.DataHandling
         {
             _dirDictionary = new Dictionary<string, string>();
         }
-        
+
         /// <summary>
         /// This method creates a file from a packet with a timestamp
         /// </summary>
         /// <param name="p">Packet</param>
         /// <returns>Full Directory of created file/existing file</returns>
-        public string Create_file(Packet p)
+        public string Create_file(Packet p, bool test)
         {
             Console.WriteLine("\nTimestamp: " + p._message);
 
@@ -50,20 +51,48 @@ namespace MediCare.DataHandling
                     Status = "creating subdirectory: " + _dir + p._id;
                     Console.WriteLine(Status);
                 }
-                if (File.Exists(Path.Combine(_dir, p._id, p._message + _fileExt)))
+                if (test)
                 {
-                    Status = "File Already exists: " + Path.Combine(_dir, p._id, p._message + _fileExt);
-                    Console.WriteLine(Status);
-                    _fulldir = Path.Combine(_dir, p._id, p._message + _fileExt);
+                    if (!Directory.Exists(Path.Combine(_dir, p._id, _testDir)))
+                    {
+                        Directory.CreateDirectory(Path.Combine(_dir, p._id, _testDir));
+                        Status = "creating subdirectory: " + _dir + p._id + _testDir;
+                        Console.WriteLine(Status);
+                    }
+                    if (File.Exists(Path.Combine(_dir, p._id, _testDir, p._message + _fileExt)))
+                    {
+                        Status = "File Already exists: " + Path.Combine(_dir, p._id, _testDir, p._message + _fileExt);
+                        Console.WriteLine(Status);
+                        _fulldir = Path.Combine(_dir, p._id, _testDir, p._message + _fileExt);
+                    }
+                    if (!File.Exists(Path.Combine(_dir, p._id, _testDir, p._message + _fileExt)))
+                    {
+                        Status = "Creating file.." + Path.Combine(_dir, p._id, _testDir, p._message + _fileExt);
+                        File.Create(Path.Combine(_dir, p._id, _testDir, p._message + _fileExt)).Close();
+                        Status = "file Created: " + Path.Combine(_dir, p._id, _testDir, p._message + _fileExt);
+                        _fulldir = Path.Combine(_dir, p._id, _testDir, p._message + _fileExt);
+                        Console.WriteLine(Status);
+                        _dirDictionary.Add(p._id, p._message);
+                    }
+                    Add_Measurement(p, test);
                 }
-                if (!File.Exists(Path.Combine(_dir, p._id, p._message + _fileExt)))
+                else
                 {
-                    Status = "Creating file.." + Path.Combine(_dir, p._id, p._message + _fileExt);
-                    File.Create(Path.Combine(_dir, p._id, p._message + _fileExt)).Close();
-                    Status = "file Created: " + Path.Combine(_dir, p._id, p._message + _fileExt);
-                    _fulldir = Path.Combine(_dir, p._id, p._message + _fileExt);
-                    Console.WriteLine(Status);
-                    _dirDictionary.Add(p._id, p._message);
+                    if (File.Exists(Path.Combine(_dir, p._id, p._message + _fileExt)))
+                    {
+                        Status = "File Already exists: " + Path.Combine(_dir, p._id, p._message + _fileExt);
+                        Console.WriteLine(Status);
+                        _fulldir = Path.Combine(_dir, p._id, p._message + _fileExt);
+                    }
+                    if (!File.Exists(Path.Combine(_dir, p._id, p._message + _fileExt)))
+                    {
+                        Status = "Creating file.." + Path.Combine(_dir, p._id, p._message + _fileExt);
+                        File.Create(Path.Combine(_dir, p._id, p._message + _fileExt)).Close();
+                        Status = "file Created: " + Path.Combine(_dir, p._id, p._message + _fileExt);
+                        _fulldir = Path.Combine(_dir, p._id, p._message + _fileExt);
+                        Console.WriteLine(Status);
+                        _dirDictionary.Add(p._id, p._message);
+                    }
                 }
             }
             catch (Exception e)
@@ -77,14 +106,25 @@ namespace MediCare.DataHandling
         /// 
         /// </summary>
         /// <param name="p"></param>
-        public void Add_Measurement(Packet p)
+        public void Add_Measurement(Packet p, bool test)
         {
             string message = p._message;
             string filename = _dirDictionary[p._id];
-
-            using (StreamWriter sw = File.AppendText(Path.Combine(_dir, p._id, filename + _fileExt)))
+            StreamWriter sw;
+            if(test)
             {
-                
+                Console.WriteLine("Writing in file: " + _dir + p._id + _testDir);
+                sw = File.AppendText(Path.Combine(_dir, p._id, _testDir, filename + _fileExt));
+            }
+            else
+            {
+                Console.WriteLine("Writing in file: " + _dir + p._id);
+                sw = File.AppendText(Path.Combine(_dir, p._id, filename + _fileExt));
+            }
+            Console.WriteLine(p._message);
+            using (sw)
+            {
+
                 byte[] clearBytes = Encoding.Unicode.GetBytes(p._message);
                 string encryptedData = "";
                 using (Aes encryptor = Aes.Create())
@@ -168,7 +208,7 @@ namespace MediCare.DataHandling
 
         public ArrayList Read_file(Packet p)
         {
-            string[] lines = File.ReadAllLines(Path.Combine(_dir,p._id,_dirDictionary[p._id] + _fileExt));
+            string[] lines = File.ReadAllLines(Path.Combine(_dir, p._id, _dirDictionary[p._id] + _fileExt));
             ArrayList resultList = new ArrayList();
             foreach (var line in lines)
             {
@@ -199,7 +239,7 @@ namespace MediCare.DataHandling
             return cipherText;
         }
 
-        
+
         /// <summary>
         /// removes file by id and datetime
         /// </summary>
@@ -214,5 +254,5 @@ namespace MediCare.DataHandling
             }
             return !File.Exists(Path.Combine(_dir, id, dateTime + _fileExt)) ? "the file does not exist" : "File Deleted";
         }
-        }
     }
+}

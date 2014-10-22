@@ -112,19 +112,29 @@ namespace MediCare.Client
                 case "TestStart":
                 HandleTestStartPacket(p);
                 break;
+                case "TestResults":
+                HandleTestResultsPacket(p);
+                break;
                 default: //nothing
                 break;
             }
         }
 
-        private void HandleTestStartPacket(Packet p)
+        private void HandleTestResultsPacket(Packet p)
         {
-            StartInspanningsTest();
+            throw new NotImplementedException();
         }
 
-        private void StartInspanningsTest()
+        private void HandleTestStartPacket(Packet p)
         {
+            StartInspanningsTest(LeeftijdBox.Text, GewichtBox.Text);
+        }
 
+        private void StartInspanningsTest(string leeftijd, string gewicht)
+        {
+            _bikeController.ResetBike();
+            Packet p = new Packet(_ID, "TestStart", "Server", leeftijd + " " + gewicht);
+            _client.sendMessage(p);
         }
 
         private void HandleFirstConnectPacket(Packet p)
@@ -445,6 +455,10 @@ namespace MediCare.Client
             listView1.Visible = v;
             TestStartButton.Visible = v;
             TestResultsButton.Visible = v;
+            LeeftijdBox.Visible = v;
+            GewichtBox.Visible = v;
+            LeeftijdLabel.Visible = v;
+            GewichtLabel.Visible = v;
 
             Password_Box.Visible = !v;
             Username_Box.Visible = !v;
@@ -485,12 +499,22 @@ namespace MediCare.Client
 
         private void TestStartButton_Clicked(object sender, EventArgs e)
         {
-            _bikeController.ResetBike();
-            StartInspanningsTest();
+            if (LeeftijdBox.Text == "" || GewichtBox.Text == "")
+            {
+                displayErrorMessage("Vul alstublieft zowel uw Leeftijd als uw Gewicht in");
+                Console.WriteLine("Leeftijd en gewicht zijn leeg!!!");
+            }
+            else
+            {
+                Console.WriteLine("Leeftijd: " + LeeftijdBox.Text + " Gewicht: " + GewichtBox.Text);
+                StartInspanningsTest(LeeftijdBox.Text, GewichtBox.Text);
+            }
         }
 
         private void TestResultsButton_Clicked(object sender, EventArgs e)
         {
+            Packet p = new Packet(_ID, "TestResults", "Server", "Test Results Requested");
+            _client.sendMessage(p);
             //Show results of previous InspanningsTest by this ID
         }
 
