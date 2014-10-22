@@ -430,6 +430,8 @@ namespace MediCare.Client
             typeBox.Visible = v;
             txtLog.Visible = v;
             listView1.Visible = v;
+            TestStartButton.Visible = v;
+            TestResultsButton.Visible = v;
 
             Password_Box.Visible = !v;
             Username_Box.Visible = !v;
