@@ -119,6 +119,15 @@ namespace MediCare.Server
                                 case "Command":
                                     HandleCommandPacket(packet);
                                     break;
+                                case "TestStart":
+                                    HandleTestStartPacket(packet);
+                                    break;
+                                case "TestData":
+                                    HandleTestDataPacket(packet);
+                                    break;
+                                case "TestResults":
+                                    HandleTestResultsPacket(packet);
+                                    break;
                                 default: //nothing
                                     break;
                             }
@@ -128,6 +137,28 @@ namespace MediCare.Server
                 }).Start();
             }
 
+        }
+
+        private void HandleTestResultsPacket(Packet packet)
+        {
+            if (IsDoctor(packet._id))
+            {
+                //Send Inspanningstest results of packet._message
+            }
+            else
+            {
+                //Send Inspanningstest results of packet._id
+            }
+        }
+
+        private void HandleTestDataPacket(Packet packet)
+        {
+            //Save data
+        }
+
+        private void HandleTestStartPacket(Packet packet)
+        {
+            SendToDestination(packet);
         }
 
         /// <summary>
