@@ -1064,12 +1064,15 @@ namespace MediCare.ArtsClient
         #endregion
         private void TestStartButton_Clicked(object sender, EventArgs e)
         {
+            Packet p = new Packet("_ID", "TestStart", _tabName, "Start test");
+            _client.sendMessage(p);
             //Start Inspanningstest
         }
 
         private void TestResultsButton_Clicked(object sender, EventArgs e)
         {
-            //Show results of previous InspanningsTest by this ID
+            Packet p = new Packet("_ID", "TestResults", "Server", _tabName);
+            _client.sendMessage(p);
         }
     }
     #endregion

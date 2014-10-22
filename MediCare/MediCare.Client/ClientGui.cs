@@ -109,9 +109,22 @@ namespace MediCare.Client
                 case "FirstConnect":
                 HandleFirstConnectPacket(p);
                 break;
+                case "TestStart":
+                HandleTestStartPacket(p);
+                break;
                 default: //nothing
                 break;
             }
+        }
+
+        private void HandleTestStartPacket(Packet p)
+        {
+            StartInspanningsTest();
+        }
+
+        private void StartInspanningsTest()
+        {
+
         }
 
         private void HandleFirstConnectPacket(Packet p)
@@ -473,7 +486,7 @@ namespace MediCare.Client
         private void TestStartButton_Clicked(object sender, EventArgs e)
         {
             _bikeController.ResetBike();
-            //Start Inspanningstest
+            StartInspanningsTest();
         }
 
         private void TestResultsButton_Clicked(object sender, EventArgs e)
