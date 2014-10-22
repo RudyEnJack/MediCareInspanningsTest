@@ -13,45 +13,60 @@ namespace MediCare.DataHandling
 
         private int timeRunningInSeconds;
 
-        private Dictionary<int, int> powerLevelAtTime;
+        private int powerLevel;
+
+        private bool warmingUp;
 
         public Exercise()
         {
-            startOfTest = DateTime.Now;
+            init();
         }
 
         public void init()
         {
-            powerLevelAtTime = new Dictionary<int, int>();
-
-            powerLevelAtTime.Add(0, 25); //At time 0 the power level should be set to 25
-            powerLevelAtTime.Add(20, 50); //at time 20 the power level should be set to 50
-            powerLevelAtTime.Add(60, 100);
-            powerLevelAtTime.Add(120, 200);
-            powerLevelAtTime.Add(180, 100);
-            powerLevelAtTime.Add(240, 250);
-            powerLevelAtTime.Add(300, 100);
-            powerLevelAtTime.Add(360, 50);
-            powerLevelAtTime.Add(420, 25);
-            powerLevelAtTime.Add(480, 0);
+            powerLevel = 50;
+            warmingUp = true;
         }
 
-        public int getPowerLevel()
+        /// <summary>
+        /// Sets the start of the exercise. should be called before the getPowerLevel() method
+        /// </summary>
+        public void start()
+        {
+            startOfTest = DateTime.Now;
+        }
+
+        /// <summary>
+        /// This method returns the powerlevel the bike should be set to at the time the method is called.
+        /// the start() method should have been called before asking the powerlevel of the bike.
+        /// </summary>
+        /// <returns>Powerlevel in int</returns>
+        public int getPowerLevel(int heartRate)
+        {
+            //updates the timers
+            update();
+
+            //checks if the heartrate of 140 has been reached if yes. stop the warming up
+            if(heartRate > 140)
+                warmingUp = false;
+
+            //during the warmingup the power keeps increasing. after the warming up it stays
+            if (warmingUp)
+            {
+                powerLevel = (((int)(timeRunningInSeconds / 30)) * 25) + 50;
+            }
+
+            return powerLevel;
+        }
+
+        public int getTimeRunning()
         {
             update();
 
-            foreach (KeyValuePair<int,int> pair in powerLevelAtTime)
-            {
-                if(pair.Key < timeRunningInSeconds)
-                {
-                    return pair.Value;
-                }
-            }
-
-            return -1;
+            return timeRunningInSeconds;
         }
 
-        public void update()
+        private void update()
         {
             currentTime = DateTime.Now;
             timeRunningInSeconds =(int)( (currentTime.Ticks - startOfTest.Ticks) / TimeSpan.TicksPerSecond );
