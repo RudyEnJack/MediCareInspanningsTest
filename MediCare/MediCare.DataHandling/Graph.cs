@@ -352,6 +352,11 @@ namespace MediCare.DataHandling
         \**************************************/
         public void process_Graph_Data(String[] data)
         {
+            Console.WriteLine(data[6]);
+            string[] temp = data[6].Split(':');
+            int minutes = int.Parse(temp[0]);
+            int seconds = int.Parse(temp[1]);
+            data[6] = "" + ((minutes * 60) + seconds);
             // if (data.Length != 1) // maybe not needed if called from updatevalues
             // {
             for (int i = 0; i < data.Length; i++)
