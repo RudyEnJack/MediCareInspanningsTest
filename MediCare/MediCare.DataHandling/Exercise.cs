@@ -16,10 +16,12 @@ namespace MediCare.DataHandling
         private int powerLevel;
 
         private bool warmingUp;
+        private bool isMale;
 
-        public Exercise()
+        public Exercise(bool genderIsMale)
         {
             init();
+            this.isMale = genderIsMale;
         }
 
         public void init()
@@ -53,7 +55,14 @@ namespace MediCare.DataHandling
             //during the warmingup the power keeps increasing. after the warming up it stays
             if (warmingUp)
             {
-                powerLevel = (((int)(timeRunningInSeconds / 30)) * 25) + 50;
+                if (isMale)
+                {
+                    powerLevel = (((int)(timeRunningInSeconds / 30)) * 50) + 50;
+                }
+                else
+                {
+                    powerLevel = (((int)(timeRunningInSeconds / 30)) * 25) + 50;
+                }
             }
 
             return powerLevel;
@@ -64,6 +73,11 @@ namespace MediCare.DataHandling
             update();
 
             return timeRunningInSeconds;
+        }
+
+        public void setIsMale(bool isMale)
+        {
+            this.isMale = isMale;
         }
 
         private void update()

@@ -55,6 +55,7 @@
     <Compile Include="ObjectIOv2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serializer.cs" />
+    <Compile Include="Vo2MaxTable.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MediCare.NetworkLibrary\MediCare.NetworkLibrary.csproj">
