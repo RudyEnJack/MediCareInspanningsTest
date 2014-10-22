@@ -468,5 +468,16 @@ namespace MediCare.Client
 
         #endregion
 
+        private void TestStartButton_Clicked(object sender, EventArgs e)
+        {
+            _bikeController.ResetBike();
+            //Start Inspanningstest
+        }
+
+        private void TestResultsButton_Clicked(object sender, EventArgs e)
+        {
+            //Show results of previous InspanningsTest by this ID
+        }
+
     }
 }
