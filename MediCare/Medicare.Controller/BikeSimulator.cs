@@ -21,7 +21,7 @@ namespace MediCare.Controller
         private int rpm = 40;
         private int speed = 33;
         private int distance = 14;
-        private int power = 200;
+        private int power = 170;
         private int energy = 1200;
         private int timeSec = 0;
         private int timeMin = 0;
@@ -194,6 +194,7 @@ namespace MediCare.Controller
             heartrate = (int)(heartrate * random);
             rpm = (int)(rpm * random);
             speed = (int)(speed * random);
+            power = (int) (170 * ((random + 1) * 1));
             currentPower = (int)(currentPower * random);
             if (currentPower > 400)
             {
