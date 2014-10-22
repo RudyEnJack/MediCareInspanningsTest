@@ -1,0 +1,56 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediCare.Server", "MediCare.Server\MediCare.Server.csproj", "{2536AC4B-2EE8-42FC-843E-00766B713285}"
+	ProjectSection(ProjectDependencies) = postProject
+		{FFF27BBF-03C0-440E-B145-4BA7FF13CBAC} = {FFF27BBF-03C0-440E-B145-4BA7FF13CBAC}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediCare.Controller", "Medicare.Controller\MediCare.Controller.csproj", "{55AA52BF-53CC-4061-AB67-F3EE6633121B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediCare.DataHandling", "MediCare.DataHandling\MediCare.DataHandling.csproj", "{2A89EE5A-46FF-4F11-AAB7-C90F1FDFAD07}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediCare.NetworkLibrary", "MediCare.NetworkLibrary\MediCare.NetworkLibrary.csproj", "{FFF27BBF-03C0-440E-B145-4BA7FF13CBAC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediCare.Client", "MediCare.Client\MediCare.Client.csproj", "{6AE46731-5C93-4454-97EC-9A3A702AF5E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediCare.DoctorsClient", "MediCare.DoctorsClient\MediCare.DoctorsClient.csproj", "{1D13D6E0-54E8-4BAE-A495-6A6899DD357A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2536AC4B-2EE8-42FC-843E-00766B713285}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2536AC4B-2EE8-42FC-843E-00766B713285}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2536AC4B-2EE8-42FC-843E-00766B713285}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2536AC4B-2EE8-42FC-843E-00766B713285}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55AA52BF-53CC-4061-AB67-F3EE6633121B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55AA52BF-53CC-4061-AB67-F3EE6633121B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55AA52BF-53CC-4061-AB67-F3EE6633121B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55AA52BF-53CC-4061-AB67-F3EE6633121B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A89EE5A-46FF-4F11-AAB7-C90F1FDFAD07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A89EE5A-46FF-4F11-AAB7-C90F1FDFAD07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A89EE5A-46FF-4F11-AAB7-C90F1FDFAD07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A89EE5A-46FF-4F11-AAB7-C90F1FDFAD07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFF27BBF-03C0-440E-B145-4BA7FF13CBAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFF27BBF-03C0-440E-B145-4BA7FF13CBAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFF27BBF-03C0-440E-B145-4BA7FF13CBAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFF27BBF-03C0-440E-B145-4BA7FF13CBAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFF27BBF-03C0-440E-B145-4BA7FF13CBAC}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{6AE46731-5C93-4454-97EC-9A3A702AF5E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AE46731-5C93-4454-97EC-9A3A702AF5E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AE46731-5C93-4454-97EC-9A3A702AF5E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AE46731-5C93-4454-97EC-9A3A702AF5E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D13D6E0-54E8-4BAE-A495-6A6899DD357A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D13D6E0-54E8-4BAE-A495-6A6899DD357A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D13D6E0-54E8-4BAE-A495-6A6899DD357A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D13D6E0-54E8-4BAE-A495-6A6899DD357A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
