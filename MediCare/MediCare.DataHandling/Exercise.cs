@@ -11,7 +11,10 @@ namespace MediCare.DataHandling
         private DateTime startOfTest;
         private DateTime currentTime;
 
+        private DateTime startOfTimedTest; //This test starts when the hearthrate is over 140 and takes 6 minutes.
+
         private int timeRunningInSeconds;
+        private int timeRunningSinceStartOfTimedTest;
 
         private int powerLevel;
 
@@ -48,9 +51,14 @@ namespace MediCare.DataHandling
             //updates the timers
             update();
 
+            if()
+
             //checks if the heartrate of 140 has been reached if yes. stop the warming up
-            if(heartRate > 140)
+            if (heartRate > 140)
+            {
                 warmingUp = false;
+                this.startOfTimedTest = DateTime.Now;
+            }
 
             //during the warmingup the power keeps increasing. after the warming up it stays
             if (warmingUp)
@@ -84,6 +92,7 @@ namespace MediCare.DataHandling
         {
             currentTime = DateTime.Now;
             timeRunningInSeconds =(int)( (currentTime.Ticks - startOfTest.Ticks) / TimeSpan.TicksPerSecond );
+            timeRunningSinceStartOfTimedTest = (int)((currentTime.Ticks - startOfTimedTest.Ticks) / TimeSpan.TicksPerSecond);
         }
     }
 }
