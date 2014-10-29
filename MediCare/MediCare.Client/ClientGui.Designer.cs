@@ -60,6 +60,9 @@
             this.GewichtBox = new System.Windows.Forms.TextBox();
             this.LeeftijdLabel = new System.Windows.Forms.Label();
             this.GewichtLabel = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
             // label1
@@ -323,14 +326,14 @@
             // 
             // LeeftijdBox
             // 
-            this.LeeftijdBox.Location = new System.Drawing.Point(1102, 446);
+            this.LeeftijdBox.Location = new System.Drawing.Point(1102, 419);
             this.LeeftijdBox.Name = "LeeftijdBox";
             this.LeeftijdBox.Size = new System.Drawing.Size(100, 20);
             this.LeeftijdBox.TabIndex = 38;
             // 
             // GewichtBox
             // 
-            this.GewichtBox.Location = new System.Drawing.Point(1102, 487);
+            this.GewichtBox.Location = new System.Drawing.Point(1102, 456);
             this.GewichtBox.Name = "GewichtBox";
             this.GewichtBox.Size = new System.Drawing.Size(100, 20);
             this.GewichtBox.TabIndex = 39;
@@ -338,7 +341,7 @@
             // LeeftijdLabel
             // 
             this.LeeftijdLabel.AutoSize = true;
-            this.LeeftijdLabel.Location = new System.Drawing.Point(1022, 449);
+            this.LeeftijdLabel.Location = new System.Drawing.Point(1022, 426);
             this.LeeftijdLabel.Name = "LeeftijdLabel";
             this.LeeftijdLabel.Size = new System.Drawing.Size(44, 13);
             this.LeeftijdLabel.TabIndex = 40;
@@ -347,17 +350,54 @@
             // GewichtLabel
             // 
             this.GewichtLabel.AutoSize = true;
-            this.GewichtLabel.Location = new System.Drawing.Point(1022, 490);
+            this.GewichtLabel.Location = new System.Drawing.Point(1022, 459);
             this.GewichtLabel.Name = "GewichtLabel";
             this.GewichtLabel.Size = new System.Drawing.Size(49, 13);
             this.GewichtLabel.TabIndex = 41;
             this.GewichtLabel.Text = "Gewicht:";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(1022, 494);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(52, 13);
+            this.label9.TabIndex = 42;
+            this.label9.Text = "Geslacht:";
+            this.label9.Click += new System.EventHandler(this.label9_Click);
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Location = new System.Drawing.Point(1102, 483);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(46, 17);
+            this.radioButton1.TabIndex = 43;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "Man";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Location = new System.Drawing.Point(1102, 506);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(55, 17);
+            this.radioButton2.TabIndex = 44;
+            this.radioButton2.TabStop = true;
+            this.radioButton2.Text = "Vrouw";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
             // 
             // ClientGui
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1264, 681);
+            this.Controls.Add(this.radioButton2);
+            this.Controls.Add(this.radioButton1);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.GewichtLabel);
             this.Controls.Add(this.LeeftijdLabel);
             this.Controls.Add(this.GewichtBox);
@@ -435,6 +475,9 @@
         private System.Windows.Forms.TextBox GewichtBox;
         private System.Windows.Forms.Label LeeftijdLabel;
         private System.Windows.Forms.Label GewichtLabel;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton radioButton2;
     }
 }
 
