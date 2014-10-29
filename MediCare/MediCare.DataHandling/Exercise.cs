@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MediCare.DataHandling
 {
-    class Exercise
+    public class Exercise
     {
         private DateTime startOfTest;
         private DateTime currentTime;

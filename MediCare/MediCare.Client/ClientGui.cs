@@ -31,6 +31,8 @@ namespace MediCare.Client
         private readonly Timer _updateDataTimer;
         private readonly Timer _labelRemoveTimer;
 
+        private bool _man = true;
+
         private string _defaultDestination = "Dokter";
 
         //USE THIS FORMAT WHEN SENDING DATETIME PACKET!
@@ -133,6 +135,15 @@ namespace MediCare.Client
         private void StartInspanningsTest(string leeftijd, string gewicht)
         {
             _bikeController.ResetBike();
+            string message = leeftijd + " " + gewicht;
+            if (_man)
+            {
+                message += " man"; 
+            }
+            else
+            {
+                message += " vrouw";
+            }
             Packet p = new Packet(_ID, "TestStart", "Server", leeftijd + " " + gewicht);
             _client.sendMessage(p);
         }
@@ -516,6 +527,21 @@ namespace MediCare.Client
             Packet p = new Packet(_ID, "TestResults", "Server", "Test Results Requested");
             _client.sendMessage(p);
             //Show results of previous InspanningsTest by this ID
+        }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            _man = true;
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            _man = false;
         }
 
     }
