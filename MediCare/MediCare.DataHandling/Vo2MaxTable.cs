@@ -11,6 +11,8 @@ namespace MediCare.DataHandling
         private double[,] vo2MaxValueMale;
         private double[,] vo2MaxValueFemale;
 
+        private static int[] correctionValue;
+
         private void init()
         {
                                  //powerlevel  100, 150, 200, 250 watt
@@ -77,6 +79,8 @@ namespace MediCare.DataHandling
                                               {1.6, 2.0, 2.4, 2.8}, //169
                                               {1.6, 2.0, 2.4, 2.7}, //170
             };
+
+            correctionValue = new int[] { 1050, 1040, 1030, 1020, 1010, 1000, 987, 974, 961, 948, 935, 922, 909, 896, 883, 870, 862, 854, 846, 838, 830 };
         }
 
             public double getVo2MaxValue(int hearRate, int power, bool male)
@@ -95,6 +99,11 @@ namespace MediCare.DataHandling
                     y = power/25 -3;
                     return vo2MaxValueFemale[x,y];
                 }
+            }
+
+            public static int getCorrectionValue(int leeftijd)
+            {
+                return correctionValue[leeftijd - 20];
             }
         }
     }
