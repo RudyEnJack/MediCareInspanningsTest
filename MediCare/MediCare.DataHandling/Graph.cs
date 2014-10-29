@@ -361,7 +361,7 @@ namespace MediCare.DataHandling
             // {
             for (int i = 0; i < data.Length; i++)
             {
-                ChartData[i].Points.Add(double.Parse(data[i]));
+                //ChartData[i].Points.Add(double.Parse(data[i]));
                 //ChartData[i].Points.
             }
             // }

@@ -8,15 +8,7 @@ namespace MediCare.DataHandling
 {
     public class Vo2MaxTable
     {
-        private double[,] vo2MaxValueMale;
-        private double[,] vo2MaxValueFemale;
-
-        private static int[] correctionValue;
-
-        private void init()
-        {
-                                 //powerlevel  100, 150, 200, 250 watt
-            vo2MaxValueMale = new double[,] { {2.6, 3.5, 4.7, 5.9}, //141
+        private static double[,] vo2MaxValueMale = new double[,] { {2.6, 3.5, 4.7, 5.9}, //141
                                               {2.5, 3.5, 4.6, 5.8}, //142
                                               {2.5, 3.4, 4.6, 5.7}, //143
                                               {2.5, 3.4, 4.5, 5.7}, //144
@@ -46,9 +38,8 @@ namespace MediCare.DataHandling
                                               {1.9, 2.6, 3.5, 4.4}, //168
                                               {1.9, 2.6, 3.5, 4.4}, //169
                                               {1.8, 2.6, 3.4, 4.3}, //170
-            };
-                                 //powerlevel  75, 100, 125, 150 watt
-            vo2MaxValueFemale = new double[,] { {2.3, 2.8, 3.4, 3.9}, //141
+        };
+        private static double[,] vo2MaxValueFemale = new double[,] { {2.3, 2.8, 3.4, 3.9}, //141
                                                 {2.3, 2.8, 3.3, 3.9}, //142
                                               {2.2, 2.7, 3.3, 3.8}, //143
                                               {2.2, 2.7, 3.2, 3.8}, //144
@@ -80,19 +71,18 @@ namespace MediCare.DataHandling
                                               {1.6, 2.0, 2.4, 2.7}, //170
             };
 
-            correctionValue = new int[] { 1050, 1040, 1030, 1020, 1010, 1000, 987, 974, 961, 948, 935, 922, 909, 896, 883, 870, 862, 854, 846, 838, 830 };
-        }
+        private static int[] correctionValue = new int[] { 1050, 1040, 1030, 1020, 1010, 1000, 987, 974, 961, 948, 935, 922, 909, 896, 883, 870, 862, 854, 846, 838, 830 };
 
-            public static double getVo2MaxValue(int hearRate, int power, bool male)
+            public static double getVo2MaxValue(int heartRate, int power, bool male)
             {
                 int heartRateOffset = 140;
-                int x = hearRate - heartRateOffset;
+                int x = heartRate - heartRateOffset;
                 int y;
 
                 if(male)
                 {
                     y = power/50 -2;
-                    return vo2MaxValueMale[x,y];
+                    return vo2MaxValueMale[x, y];
                 }
                 else
                 {

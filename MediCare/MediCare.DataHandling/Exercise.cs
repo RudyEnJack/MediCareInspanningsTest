@@ -57,7 +57,7 @@ namespace MediCare.DataHandling
             }
 
             //checks if the heartrate of 140 has been reached if yes. stop the warming up
-            if (heartRate > 140)
+            if (heartRate > 140 && warmingUp)
             {
                 warmingUp = false;
                 this.startOfTimedTest = DateTime.Now;
@@ -68,11 +68,11 @@ namespace MediCare.DataHandling
             {
                 if (isMale)
                 {
-                    powerLevel = (((int)(timeRunningInSeconds / 120)) * 50) + 50;
+                    powerLevel = (((int)(timeRunningInSeconds / 30)) * 50) + 50;
                 }
                 else
                 {
-                    powerLevel = (((int)(timeRunningInSeconds / 120)) * 25) + 50;
+                    powerLevel = (((int)(timeRunningInSeconds / 30)) * 25) + 50;
                 }
             }
 
@@ -96,6 +96,7 @@ namespace MediCare.DataHandling
             currentTime = DateTime.Now;
             timeRunningInSeconds =(int)( (currentTime.Ticks - startOfTest.Ticks) / TimeSpan.TicksPerSecond );
             timeRunningSinceStartOfTimedTest = (int)((currentTime.Ticks - startOfTimedTest.Ticks) / TimeSpan.TicksPerSecond);
+            Console.WriteLine("Timerunningsincestartoftimedtest is: " + timeRunningSinceStartOfTimedTest);
         }
     }
 }

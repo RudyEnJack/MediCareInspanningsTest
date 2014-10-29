@@ -35,6 +35,8 @@ namespace MediCare.Client
 
         private Exercise _ex;
 
+        private double _VO2MAX;
+
         private string _defaultDestination = "Dokter";
 
         //USE THIS FORMAT WHEN SENDING DATETIME PACKET!
@@ -44,6 +46,8 @@ namespace MediCare.Client
         private bool _exerciseStarted = false;
         private int _leeftijd;
         private int _gewicht;
+        private int _lastHeartbeat;
+        private int _lastPower;
 
         public ClientGui()
         {
@@ -165,14 +169,19 @@ namespace MediCare.Client
             VO2MAX = (int)(VO2MAX*10);
             VO2MAX /= 10;
             string message = "" + VO2MAX; // results van test
+            _VO2MAX = VO2MAX;
             Packet p = new Packet(_ID, "TestEnd", "Server", message);
+            TestStartButton.Visible = true; ;
+            TestResultsButton.Visible = true;
+            MessageBox.Show("Uw test is voltooid, druk op 'testresultaten weergeven' om uw testresultaten in te zien);
         }
 
-        private double CalculateVO2MAX(int heartbeat, int power, int _leeftijd, int _gewicht)
+        private double CalculateVO2MAX(int heartbeat, int power, int leeftijd, int gewicht)
         {
-            double VO2MAX = Vo2MaxTable.getVo2MaxValue(heartbeat, power, _man);
-            double correctie = Vo2MaxTable.getCorrectionValue(_leeftijd)/1000;
-            VO2MAX = (((VO2MAX * 1000) * correctie) / _gewicht);
+            //Vo2MaxTable table = new Vo2MaxTable();
+            double VO2MAX = Vo2MaxTable.getVo2MaxValue(heartbeat, power, _man);//table.getVo2MaxValue(heartbeat, power, _man);
+            double correctie = Vo2MaxTable.getCorrectionValue(leeftijd) / 1000;//table.getCorrectionValue(leeftijd) / 1000;
+            VO2MAX = (((VO2MAX * 1000) * correctie) / gewicht);
             return VO2MAX;
         }
 
@@ -257,15 +266,19 @@ namespace MediCare.Client
             {
                 if (_exerciseStarted)
                 {
-                    int heartbeat = Int32.Parse(data[0]);
-                    int power = _ex.getPowerLevel(heartbeat);
+                    if (Int32.Parse(data[0]) > 80)
+                    {
+                        _lastHeartbeat = Int32.Parse(data[0]);
+                    }
+                    int power = _ex.getPowerLevel(_lastHeartbeat);
                     if(power != -1)
                     {
                         _bikeController.SetPower(power);
+                        _lastPower = power;
                     }
                     else
                     {
-                        EndInspanningsTest(heartbeat, power);
+                        EndInspanningsTest(_lastHeartbeat, _lastPower);
                     }
                 }
                 Heartbeats_Box.Text = data[0];
@@ -563,6 +576,8 @@ namespace MediCare.Client
             {
                 Console.WriteLine("Leeftijd: " + LeeftijdBox.Text + " Gewicht: " + GewichtBox.Text + "Man: " + _man);
                 StartInspanningsTest(LeeftijdBox.Text, GewichtBox.Text);
+                TestStartButton.Visible = false; ;
+                TestResultsButton.Visible = false;
             }
             _ex = new Exercise(_man);
             _ex.start();
@@ -571,8 +586,14 @@ namespace MediCare.Client
 
         private void TestResultsButton_Clicked(object sender, EventArgs e)
         {
-            Packet p = new Packet(_ID, "TestResults", "Server", "Test Results Requested");
-            _client.sendMessage(p);
+            if (_VO2MAX != null)
+            {
+                MessageBox.Show("Uw VO2MAX is: " + _VO2MAX);
+            }
+            else
+            {
+                MessageBox.Show("U heeft nog geen test voltooid");
+            }
             //Show results of previous InspanningsTest by this ID
         }
 

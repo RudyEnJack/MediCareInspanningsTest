@@ -150,10 +150,14 @@ namespace MediCare.Server
         {
             if (IsDoctor(packet._id))
             {
+                Packet p = new Packet("Server", "TestResult", packet._id, " "); /*GET RESULTS WITH FILEIO*/
+                SendToDestination(p);
                 //Send Inspanningstest results of packet._message
             }
             else
             {
+                Packet p = new Packet("Server", "TestResult", packet._id, " "); /*GET RESULTS WITH FILEIO*/
+                SendToDestination(p);
                 //Send Inspanningstest results of packet._id
             }
         }
