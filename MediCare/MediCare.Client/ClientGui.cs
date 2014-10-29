@@ -470,6 +470,9 @@ namespace MediCare.Client
             GewichtBox.Visible = v;
             LeeftijdLabel.Visible = v;
             GewichtLabel.Visible = v;
+            ManRadioButton.Visible = v;
+            VrouwRadioButton.Visible = v;
+            GeslachtLabel.Visible = v;
 
             Password_Box.Visible = !v;
             Username_Box.Visible = !v;
@@ -529,17 +532,12 @@ namespace MediCare.Client
             //Show results of previous InspanningsTest by this ID
         }
 
-        private void label9_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        private void ManRadioButton_CheckedChanged(object sender, EventArgs e)
         {
             _man = true;
         }
 
-        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        private void VrouwRadioButton_CheckedChanged(object sender, EventArgs e)
         {
             _man = false;
         }
