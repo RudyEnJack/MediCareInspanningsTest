@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MediCare.DataHandling
 {
-    public class Exercise
+    class Exercise
     {
         private DateTime startOfTest;
         private DateTime currentTime;
@@ -51,7 +51,10 @@ namespace MediCare.DataHandling
             //updates the timers
             update();
 
-            if()
+            if(timeRunningSinceStartOfTimedTest == (6 *60) ) //after 6 minutes of TimedTesting.
+            {
+                //save data end test
+            }
 
             //checks if the heartrate of 140 has been reached if yes. stop the warming up
             if (heartRate > 140)
