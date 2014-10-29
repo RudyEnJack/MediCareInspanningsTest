@@ -170,14 +170,6 @@ namespace MediCare.Server
                 _test = true;
                 mIOv2.Create_file(new Packet(packet._id, packet._type, timestamp[0] + " " + timestamp[1]), _test);
                 mIOv2.Add_Measurement(packet, _test);
-                if (packet._message.Split(' ')[2] == "man")
-                {
-                    Exercise ex = new Exercise(true);
-                }
-                else
-                {
-                    Exercise ex = new Exercise(false);
-                }
             }
         }
 

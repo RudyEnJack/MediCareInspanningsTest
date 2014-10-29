@@ -33,12 +33,17 @@ namespace MediCare.Client
 
         private bool _man = true;
 
+        private Exercise _ex;
+
         private string _defaultDestination = "Dokter";
 
         //USE THIS FORMAT WHEN SENDING DATETIME PACKET!
         private string _DateFileFormat = "yyyy_MM_dd HH_mm_ss";
 
         private bool first = true;
+        private bool _exerciseStarted = false;
+        private int _leeftijd;
+        private int _gewicht;
 
         public ClientGui()
         {
@@ -136,6 +141,9 @@ namespace MediCare.Client
         {
             _bikeController.ResetBike();
             string message = leeftijd + " " + gewicht;
+            _leeftijd = Int32.Parse(leeftijd);
+            _gewicht = Int32.Parse(gewicht);
+
             if (_man)
             {
                 message += " man"; 
@@ -144,8 +152,28 @@ namespace MediCare.Client
             {
                 message += " vrouw";
             }
-            Packet p = new Packet(_ID, "TestStart", "Server", leeftijd + " " + gewicht);
+            Packet p = new Packet(_ID, "TestStart", "Server", message);
             _client.sendMessage(p);
+
+        }
+
+        private void EndInspanningsTest(int heartbeat, int power)
+        {
+            _exerciseStarted = false;
+            _bikeController.SetPower(25);
+            double VO2MAX = CalculateVO2MAX(heartbeat, power, _leeftijd, _gewicht);
+            VO2MAX = (int)(VO2MAX*10);
+            VO2MAX /= 10;
+            string message = "" + VO2MAX; // results van test
+            Packet p = new Packet(_ID, "TestEnd", "Server", message);
+        }
+
+        private double CalculateVO2MAX(int heartbeat, int power, int _leeftijd, int _gewicht)
+        {
+            double VO2MAX = Vo2MaxTable.getVo2MaxValue(heartbeat, power, _man);
+            double correctie = Vo2MaxTable.getCorrectionValue(_leeftijd)/1000;
+            VO2MAX = (((VO2MAX * 1000) * correctie) / _gewicht);
+            return VO2MAX;
         }
 
         private void HandleFirstConnectPacket(Packet p)
@@ -227,6 +255,19 @@ namespace MediCare.Client
             // anders pak je de waarden van de bike
             else
             {
+                if (_exerciseStarted)
+                {
+                    int heartbeat = Int32.Parse(data[0]);
+                    int power = _ex.getPowerLevel(heartbeat);
+                    if(power != -1)
+                    {
+                        _bikeController.SetPower(power);
+                    }
+                    else
+                    {
+                        EndInspanningsTest(heartbeat, power);
+                    }
+                }
                 Heartbeats_Box.Text = data[0];
                 RPM_Box.Text = data[1];
                 Speed_Box.Text = data[2];
@@ -515,14 +556,17 @@ namespace MediCare.Client
         {
             if (LeeftijdBox.Text == "" || GewichtBox.Text == "")
             {
-                displayErrorMessage("Vul alstublieft zowel uw Leeftijd als uw Gewicht in");
-                Console.WriteLine("Leeftijd en gewicht zijn leeg!!!");
+                displayErrorMessage("Vul alstublieft uw leeftijd, uw geslacht en uw gewicht in");
+                Console.WriteLine("Leeftijd, geslacht en/of gewicht is/zijn leeg!!!");
             }
             else
             {
-                Console.WriteLine("Leeftijd: " + LeeftijdBox.Text + " Gewicht: " + GewichtBox.Text);
+                Console.WriteLine("Leeftijd: " + LeeftijdBox.Text + " Gewicht: " + GewichtBox.Text + "Man: " + _man);
                 StartInspanningsTest(LeeftijdBox.Text, GewichtBox.Text);
             }
+            _ex = new Exercise(_man);
+            _ex.start();
+            _exerciseStarted = true;
         }
 
         private void TestResultsButton_Clicked(object sender, EventArgs e)

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MediCare.DataHandling
 {
-    class Exercise
+    public class Exercise
     {
         private DateTime startOfTest;
         private DateTime currentTime;
@@ -53,7 +53,7 @@ namespace MediCare.DataHandling
 
             if(timeRunningSinceStartOfTimedTest == (6 *60) ) //after 6 minutes of TimedTesting.
             {
-                //save data end test
+                return -1;
             }
 
             //checks if the heartrate of 140 has been reached if yes. stop the warming up
@@ -68,11 +68,11 @@ namespace MediCare.DataHandling
             {
                 if (isMale)
                 {
-                    powerLevel = (((int)(timeRunningInSeconds / 30)) * 50) + 50;
+                    powerLevel = (((int)(timeRunningInSeconds / 120)) * 50) + 50;
                 }
                 else
                 {
-                    powerLevel = (((int)(timeRunningInSeconds / 30)) * 25) + 50;
+                    powerLevel = (((int)(timeRunningInSeconds / 120)) * 25) + 50;
                 }
             }
 

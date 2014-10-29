@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MediCare.DataHandling
 {
-    class Vo2MaxTable
+    public class Vo2MaxTable
     {
         private double[,] vo2MaxValueMale;
         private double[,] vo2MaxValueFemale;
@@ -83,7 +83,7 @@ namespace MediCare.DataHandling
             correctionValue = new int[] { 1050, 1040, 1030, 1020, 1010, 1000, 987, 974, 961, 948, 935, 922, 909, 896, 883, 870, 862, 854, 846, 838, 830 };
         }
 
-            public double getVo2MaxValue(int hearRate, int power, bool male)
+            public static double getVo2MaxValue(int hearRate, int power, bool male)
             {
                 int heartRateOffset = 140;
                 int x = hearRate - heartRateOffset;
