@@ -16,8 +16,8 @@ namespace MediCare.Controller
         
         private Boolean isCM = false;
 
-        private int heartrate = 110;
-        private int rpm = 40;
+        private int heartrate = 150;
+        private int rpm = 60;
         private int speed = 33;
         private int distance = 14;
         private int power = 25;

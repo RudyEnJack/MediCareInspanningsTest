@@ -158,7 +158,6 @@ namespace MediCare.Client
             }
             Packet p = new Packet(_ID, "TestStart", "Server", message);
             _client.sendMessage(p);
-
         }
 
         private void EndInspanningsTest(int heartbeat, int power)
@@ -173,7 +172,7 @@ namespace MediCare.Client
             Packet p = new Packet(_ID, "TestEnd", "Server", message);
             TestStartButton.Visible = true; ;
             TestResultsButton.Visible = true;
-            MessageBox.Show("Uw test is voltooid, druk op 'testresultaten weergeven' om uw testresultaten in te zien);
+            MessageBox.Show("Uw test is voltooid, druk op 'testresultaten weergeven' om uw testresultaten in te zien");
         }
 
         private double CalculateVO2MAX(int heartbeat, int power, int leeftijd, int gewicht)
@@ -291,6 +290,18 @@ namespace MediCare.Client
                 Brake_Box.Text = data[7];
                 SendMeasurementData(data, "Data");
                 _graph.process_Graph_Data(data);
+
+                if (_exerciseStarted)
+                {
+                    if(Int32.Parse(data[1]) < 50)
+                    {
+                        on_message_receive_event("Automatisch Test Bericht", "U fietst niet snel genoeg. Uw RPM moet constant 60 blijven.");
+                    }
+                    if(Int32.Parse(data[1]) > 70)
+                    {
+                        on_message_receive_event("Automatisch Test Bericht", "U fietst te snel. Uw RPM moet constant 60 blijven.");
+                    }
+                }
             }
         }
 
