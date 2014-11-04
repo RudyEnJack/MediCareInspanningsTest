@@ -138,7 +138,8 @@ namespace MediCare.Client
 
         private void HandleTestStartPacket(Packet p)
         {
-            StartInspanningsTest(LeeftijdBox.Text, GewichtBox.Text);
+            on_message_receive_event(p._id, p._message);
+            //StartInspanningsTest(LeeftijdBox.Text, GewichtBox.Text);
         }
 
         private void StartInspanningsTest(string leeftijd, string gewicht)
@@ -169,7 +170,7 @@ namespace MediCare.Client
             VO2MAX /= 10;
             string message = "" + VO2MAX; // results van test
             _VO2MAX = VO2MAX;
-            Packet p = new Packet(_ID, "TestEnd", "Server", message);
+            Packet p = new Packet(_ID, "TestEnd", "Doctors", message);
             TestStartButton.Visible = true; ;
             TestResultsButton.Visible = true;
             MessageBox.Show("Uw test is voltooid, druk op 'testresultaten weergeven' om uw testresultaten in te zien");
@@ -295,11 +296,11 @@ namespace MediCare.Client
                 {
                     if(Int32.Parse(data[1]) < 50)
                     {
-                        on_message_receive_event("Automatisch Test Bericht", "U fietst niet snel genoeg. Uw RPM moet constant 60 blijven.");
+                        on_message_receive_event("Automatisch bericht", "U fietst niet snel genoeg. Uw RPM moet rond de 60 blijven.");
                     }
                     if(Int32.Parse(data[1]) > 70)
                     {
-                        on_message_receive_event("Automatisch Test Bericht", "U fietst te snel. Uw RPM moet constant 60 blijven.");
+                        on_message_receive_event("Automatisch bericht", "U fietst te snel. Uw RPM moet rond de 60 blijven.");
                     }
                 }
             }
@@ -605,7 +606,7 @@ namespace MediCare.Client
             {
                 MessageBox.Show("U heeft nog geen test voltooid");
             }
-            //Show results of previous InspanningsTest by this ID
+            //TODO Show results of previous InspanningsTest by this ID
         }
 
         private void ManRadioButton_CheckedChanged(object sender, EventArgs e)

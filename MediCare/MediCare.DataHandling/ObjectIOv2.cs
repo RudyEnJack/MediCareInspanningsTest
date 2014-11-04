@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using MediCare.NetworkLibrary;
+using System.Linq;
 
 namespace MediCare.DataHandling
 {
@@ -176,6 +177,18 @@ namespace MediCare.DataHandling
             return "no file found";
         }
 
+        public string GetTestResult(string id)
+        {
+            
+            if (Directory.Exists(Path.Combine(_dir, id, _testDir)))
+            {
+                var dir = new DirectoryInfo(Path.Combine(_dir, id, _testDir));
+                string lastTest = dir.GetFiles().OrderByDescending(f => f.LastWriteTime).First().Name;
+                string lastLine = File.ReadLines(Path.Combine(_dir, id, _testDir + lastTest)).Last();
+                return Decrypt(lastLine);
+            }
+            return "no file found";
+        }
         /// <summary>
         /// Find all files associated with the ID sent with the packet.
         /// </summary>

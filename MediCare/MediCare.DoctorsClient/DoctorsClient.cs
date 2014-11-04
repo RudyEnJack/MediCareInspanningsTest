@@ -129,15 +129,23 @@ namespace MediCare.ArtsClient
                     case "TestResults":
                     HandleTestResultsPacket(p);
                     break;
+                    case "TestEnd":
+                    HandleTestEndPacket(p);
+                    break;
                     default: //nothing
                     break;
                 }
             }
         }
 
+        private void HandleTestEndPacket(Packet p)
+        {
+            MessageBox.Show("De test is succesvol beeindigt door de patient. De gemeten VO2MAX is: " + p._message);
+        }
+
         private void HandleTestResultsPacket(Packet p)
         {
-            throw new NotImplementedException();
+            MessageBox.Show(p._id + " heeft een VO2MAX van: " + p._message);
         }
 
         private void HandleDisconnectPacket(Packet p)
@@ -1072,14 +1080,15 @@ namespace MediCare.ArtsClient
         #endregion
         private void TestStartButton_Clicked(object sender, EventArgs e)
         {
-            Packet p = new Packet("_ID", "TestStart", _tabName, "Start test");
+            Packet p = new Packet(_id, "TestStart", _tabName, "Vul alstublieft uw leeftijd en gewicht in en druk dan op Start test");
             _client.sendMessage(p);
             //Start Inspanningstest
         }
 
         private void TestResultsButton_Clicked(object sender, EventArgs e)
         {
-            Packet p = new Packet("_ID", "TestResults", "Server", _tabName);
+            Console.WriteLine(_tabName);
+            Packet p = new Packet(_id, "TestResults", _tabName, _tabName);
             _client.sendMessage(p);
         }
     }

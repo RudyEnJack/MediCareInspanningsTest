@@ -142,21 +142,26 @@ namespace MediCare.Server
 
         private void HandleTestEndPacket(Packet packet)
         {
-            _test = false;
             mIOv2.Add_Measurement(packet, _test);
+            _test = false;
+            sendToDoctors(packet);
         }
 
         private void HandleTestResultsPacket(Packet packet)
         {
             if (IsDoctor(packet._id))
             {
-                Packet p = new Packet("Server", "TestResult", packet._id, " "); /*GET RESULTS WITH FILEIO*/
+                Console.WriteLine("Doctor: " + packet._id + " asked for last test results from: " + packet._destination);
+                string result = mIOv2.GetTestResult(packet._destination);
+                Console.WriteLine("Results are: " + result);
+                Packet p = new Packet(packet._destination, "TestResults", packet._id, result);
                 SendToDestination(p);
                 //Send Inspanningstest results of packet._message
             }
             else
             {
-                Packet p = new Packet("Server", "TestResult", packet._id, " "); /*GET RESULTS WITH FILEIO*/
+                string result = mIOv2.GetTestResult(packet._id);
+                Packet p = new Packet("Server", "TestResults", packet._id, result);
                 SendToDestination(p);
                 //Send Inspanningstest results of packet._id
             }
