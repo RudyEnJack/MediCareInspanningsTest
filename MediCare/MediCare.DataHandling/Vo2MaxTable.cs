@@ -75,20 +75,27 @@ namespace MediCare.DataHandling
 
             public static double getVo2MaxValue(int heartRate, int power, bool male)
             {
-                int heartRateOffset = 140;
+                int heartRateOffset = 120;
                 int x = heartRate - heartRateOffset;
                 int y;
+
+                Console.WriteLine("Vo2MaxTable - Looking up vo2Max Value with heartrate: " + heartRate + " and power level: " + power);
+
+                double returnVal;
 
                 if(male)
                 {
                     y = power/50 -2;
-                    return vo2MaxValueMale[x, y];
+                    returnVal = vo2MaxValueMale[x, y];
                 }
                 else
                 {
                     y = power/25 -3;
-                    return vo2MaxValueFemale[x,y];
+                    returnVal = vo2MaxValueFemale[x,y];
                 }
+
+                Console.WriteLine("Result was: " + returnVal);
+                return returnVal;
             }
 
             public static int getCorrectionValue(int leeftijd)

@@ -51,13 +51,16 @@ namespace MediCare.DataHandling
             //updates the timers
             update();
 
-            if(timeRunningSinceStartOfTimedTest == (6 *60) ) //after 6 minutes of TimedTesting.
+            // If this value is changed the bikeSimulator has to be adjusted accordingly!
+            int mintesForMeasurement = 1; // this is the ammount of minutes it takes for the timed testing. should be 6 for real measurements
+
+            if (timeRunningSinceStartOfTimedTest == (mintesForMeasurement * 60)) //after 6 minutes of TimedTesting.
             {
                 return -1;
             }
 
-            //checks if the heartrate of 140 has been reached if yes. stop the warming up
-            if (heartRate > 140 && warmingUp)
+            //checks if the heartrate of 120 has been reached if yes. stop the warming up
+            if (heartRate > 120 && warmingUp)
             {
                 warmingUp = false;
                 this.startOfTimedTest = DateTime.Now;
