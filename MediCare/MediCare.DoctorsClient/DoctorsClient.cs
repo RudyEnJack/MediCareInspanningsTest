@@ -140,7 +140,7 @@ namespace MediCare.ArtsClient
 
         private void HandleTestEndPacket(Packet p)
         {
-            MessageBox.Show("De test is succesvol beeindigt door de patient. De gemeten VO2MAX is: " + p._message);
+            MessageBox.Show("De test is succesvol beeindigt door patient " + p._id + ". De gemeten VO2MAX is: " + p._message);
         }
 
         private void HandleTestResultsPacket(Packet p)

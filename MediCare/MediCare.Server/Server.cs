@@ -142,7 +142,9 @@ namespace MediCare.Server
 
         private void HandleTestEndPacket(Packet packet)
         {
+            Console.WriteLine("Saving VO2MAX. VO2MAX is: " + packet._message);
             mIOv2.Add_Measurement(packet, _test);
+            Console.WriteLine("VO2MAX saved, value is: " + mIOv2.GetTestResult(packet._id));
             _test = false;
             sendToDoctors(packet);
         }

@@ -171,6 +171,7 @@ namespace MediCare.Client
             string message = "" + VO2MAX; // results van test
             _VO2MAX = VO2MAX;
             Packet p = new Packet(_ID, "TestEnd", "Doctors", message);
+            _client.sendMessage(p);
             TestStartButton.Visible = true; ;
             TestResultsButton.Visible = true;
             MessageBox.Show("Uw test is voltooid, druk op 'testresultaten weergeven' om uw testresultaten in te zien");

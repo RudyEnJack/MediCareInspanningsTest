@@ -196,11 +196,11 @@ namespace MediCare.Controller
             //int values to tune settings for use with vo2max test // to enter these values exercise.cs should be checked
             int powerUpInterval = 30; // the interval in which the test increases the power level. in case of testing this could be 30 seconds. in release this should be 120 seconds for test results to be accurate
             int fewSeconds = 6; // extra seconds after 2 powerups for the simulator to keep cycling without too much heartrate increase
-            int threshHoldHeartRate = 120; // value could be below 120 when testing. for end use should be 120.
+            int threshHoldHeartRate = 140; // value could be below 140 when testing. for end use should be 120.
             int lastStage = 0;
             int mintesForMeasurement = 1; //The ammount of minutes we are taking to do the actual test. for testing can be between 1 and 6. for end use should be 6 for the test result to make sense
 
-            if(secondsPassed < 30) //if in first 10 seconds. the patient is connected to the hearthrate sensor but it not cyclign yet.
+            if(secondsPassed < 10) //if in first 10 seconds. the patient is connected to the hearthrate sensor but it not cyclign yet.
             {
                 heartrate = 80 + (int)(random * 4);
                 rpm = 0;
@@ -236,7 +236,7 @@ namespace MediCare.Controller
             {
                 if (power > 25) //if the power is above 25 (we are not cycling for cooling down. but we are measuring until the cooldown) these values
                 {
-                    heartrate = 90 + 39 + (int)(random * 4); //go over the threshhold value to trigger the exercise test start heartrate level
+                    heartrate = 90 + 59 + (int)(random * 4); //go over the threshhold value to trigger the exercise test start heartrate level
                     rpm = 55 + (int)(random * 6);
                     speed = rpm * (power / 13);
                     Console.WriteLine("Speed: " + speed);

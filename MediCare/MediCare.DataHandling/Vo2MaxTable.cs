@@ -75,7 +75,7 @@ namespace MediCare.DataHandling
 
             public static double getVo2MaxValue(int heartRate, int power, bool male)
             {
-                int heartRateOffset = 120;
+                int heartRateOffset = 140;
                 int x = heartRate - heartRateOffset;
                 int y;
 
